@@ -52,7 +52,7 @@ class Question {
                 row = this.replaceDashes(row);
                 final += ('\n' + a + row);
             });
-            console.log('final: ', final);
+            return final;
         }
 
     }
