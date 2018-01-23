@@ -1,6 +1,5 @@
 const express = require('express');
 const app = express();
-const dotenv = require('dotenv').config();
 
 const PORT = process.env.PORT || 3000;
 
@@ -43,27 +42,26 @@ class Question {
             'D': stage[4],
         };
 
-        if (use['A'] !== undefined) {
-            use['A'].split('')[0] === '-' ? left = true : left = false;
-            let keys = Object.keys(use);
-            keys.map((a, b) => {
-                let row = use[a].slice(1);
-                row = row.replace('%3D', '=');
-                row = row.split('');
-                row[b] = '=';
-                row = row.join('');
-                row = this.replaceDashes(row, left);
-                final += ('\n' + a + row);
-            });
+        use['A'].split('')[0] === '-' ? left = true : left = false;
+        let keys = Object.keys(use);
+        keys.map((a, b) => {
+            let row = use[a].slice(1);
+            row = row.replace('%3D', '=');
+            row = row.split('');
+            row[b] = '=';
+            row = row.join('');
+            row = this.replaceDashes(row, left);
+            final += ('\n' + a + row);
+        });
 
-            return final;
-        }
+        return final;
 
     }
 
     static replaceDashes(r, left) {
         let arrow;
         let opp;
+        let stage = [];
 
         if (left === true) {
             arrow = '<';
@@ -72,8 +70,9 @@ class Question {
             arrow = '>';
             opp = '<';
         }
-        let stage = [];
+
         r = r.split('');
+        
         r.map((a,b) => {
             if (a === '-') {
                 if (b % 2 === 0) {
