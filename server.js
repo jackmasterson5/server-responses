@@ -33,7 +33,9 @@ class Question {
 
     static solvePuzzle(url) {
         let final = 'ABCD';
+        let left;
         let stage = decodeURI(url.split('ABCD')[1]).split('\n');
+
         let use = {
             'A': stage[1],
             'B': stage[2],
@@ -42,6 +44,7 @@ class Question {
         };
 
         if (use['A'] !== undefined) {
+            use['A'].split('')[0] === '-' ? left = true : left = false;
             let keys = Object.keys(use);
             keys.map((a, b) => {
                 let row = use[a].slice(1);
@@ -49,29 +52,39 @@ class Question {
                 row = row.split('');
                 row[b] = '=';
                 row = row.join('');
-                row = this.replaceDashes(row);
+                row = this.replaceDashes(row, left);
                 final += ('\n' + a + row);
             });
+
             return final;
         }
 
     }
 
-    static replaceDashes(r) {
+    static replaceDashes(r, left) {
+        let arrow;
+        let opp;
+
+        if (left === true) {
+            arrow = '<';
+            opp = '>';
+        } else {
+            arrow = '>';
+            opp = '<';
+        }
         let stage = [];
         r = r.split('');
         r.map((a,b) => {
             if (a === '-') {
                 if (b % 2 === 0) {
-                    a = '>';
+                    a = opp;
                 } else {
-                    a = '<';
+                    a = arrow;
                 }
             }
             stage.push(a);
         });
         return stage.join('');
-
     }
 
     constructor(url, analysis, res) {
