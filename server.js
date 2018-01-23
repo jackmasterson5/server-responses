@@ -9,8 +9,8 @@ app.listen(PORT);
 console.log('app is listening on port: ', PORT);
 
 app.get('*', (req, res) => {
-    Question.analysis = 
-    new Question(req.url, res);
+    let analysis = Question.analysis();
+    new Question(req.url, analysis, res);
 });
 
 class Question {
@@ -30,9 +30,10 @@ class Question {
         }
     }
 
-    constructor(url, res) {
+    constructor(url, analysis, res) {
         this.res = res;
-
+        this.analysis = analysis;
+        
         let d = url.split('&d=')[0];
         let q = d.split('/?q=')[1];
 
@@ -41,8 +42,8 @@ class Question {
         this.analyze();
     }
     analyze() {
-        let analysis = Question.analysis();
-        let answer = analysis[this.q];
+        
+        let answer = this.analysis[this.question];
         this.sendData(this.res, answer);
     }
     sendData(res, answer) {
