@@ -27,13 +27,18 @@ class Question {
             'Phone': '908-433-0178',
             'Email+Address': 'jackmasterson5@gmail.com',
             'Position': 'Front End/Ad Tech Software Engineer',
+            'Puzzle': ' ABCD\n' +
+                        'A=>>>\n' +
+                        'B<=><\n' +
+                        'C<<=<\n' +
+                        'D<>>=',
         }
     }
 
     constructor(url, analysis, res) {
         this.res = res;
         this.analysis = analysis;
-        
+
         let d = url.split('&d=')[0];
         let q = d.split('/?q=')[1];
 
@@ -42,8 +47,8 @@ class Question {
         this.analyze();
     }
     analyze() {
-        
         let answer = this.analysis[this.question];
+        
         this.sendData(this.res, answer);
     }
     sendData(res, answer) {
