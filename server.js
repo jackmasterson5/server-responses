@@ -55,29 +55,31 @@ class Question {
 
         // if the first value of the first line is a dash, then 
         // the arrow points left to start
-        use['A'].split('')[0] === '-' ? left = true : left = false;
+        if (use['A'] !== undefined) {
+            use['A'].split('')[0] === '-' ? left = true : left = false;
 
-        // further formattingn of the strings
-        let keys = Object.keys(use);
-        keys.map((a, b) => {
-            // replace the errant %3D with an equals sign
-            let row = use[a].slice(1);
-            row = row.replace('%3D', '=');
+            // further formattingn of the strings
+            let keys = Object.keys(use);
+            keys.map((a, b) => {
+                // replace the errant %3D with an equals sign
+                let row = use[a].slice(1);
+                row = row.replace('%3D', '=');
 
-            // the row number is the index of the equals sign for that row
-            row = row.split('');
-            row[b] = '=';
-            row = row.join('');
+                // the row number is the index of the equals sign for that row
+                row = row.split('');
+                row[b] = '=';
+                row = row.join('');
 
-            // replace the dashes with the proper string, including
-            // which way they should start by pointing
-            row = this.replaceDashes(row, left);
+                // replace the dashes with the proper string, including
+                // which way they should start by pointing
+                row = this.replaceDashes(row, left);
 
-            // add to the final string with a new line to start each
-            final += ('\n' + a + row);
-        });
+                // add to the final string with a new line to start each
+                final += ('\n' + a + row);
+            });
 
-        return final;
+            return final;
+        }
 
     }
 
