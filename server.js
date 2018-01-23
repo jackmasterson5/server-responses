@@ -26,6 +26,7 @@ app.get('*', (req, res) => {
 const util = {
     analyzeQuestion: (question, description, callback) => {
         let answer;
+        console.log('question: ', question);
         if (question === 'Ping') {
             answer = 'OK';
         } else if (question === 'Resume') {
@@ -34,9 +35,9 @@ const util = {
             answer = 'Front End Developer "Nanodegree" from Udacity: https://www.udacity.com/';
         } else if (question === 'Name') {
             answer = 'Jack Masterson';
-        } else if (question = 'Source') {
+        } /*else if (question = 'Source') {
             answer = 'Private GitHub: https://github.com/jackmasterson5/server-responses';
-        } else if (question = 'Years') {
+        }*/ else if (question = 'Years') {
             answer = '2-3 years of experience';
         } else if (question = 'Status') {
             answer = 'Yes, I can prove my eligibility.';
